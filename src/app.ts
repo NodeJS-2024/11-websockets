@@ -21,8 +21,16 @@ webSocketServer.on('connection', function connection(ws) {
     // ws.send(JSON.stringify(payload));
 
     //* Enviar a todos los clientes broadcast
+    //* A todos - incluyente
+    // webSocketServer.clients.forEach(function each(client) {
+    //   if (client.readyState === WebSocket.OPEN) {
+    //     client.send(payload, { binary: false });
+    //   }
+    // });
+
+    //* A todos excluyente
     webSocketServer.clients.forEach(function each(client) {
-      if (client.readyState === WebSocket.OPEN) {
+      if (client !== ws && client.readyState === WebSocket.OPEN) {
         client.send(payload, { binary: false });
       }
     });
